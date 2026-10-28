@@ -459,7 +459,7 @@ colnames(lastseen) <- c("TagID", "StationID", "LastDetection")
 lastseen$TagType <- "NA"
 lastseen$TagType[which(lastseen$TagID %in% c("5EAD9E2E", "06B8E5AE"))] <- "AT_STATION"
 lastseen$TagType[which(lastseen$TagID %in% c("06FE06EF"))] <- "COQUET_STATION"
-lastseen$TagType[which(lastseen$TagID %in% c("5DBCD9E0"))] <- "TEST?"
+lastseen$TagType[which(lastseen$TagID %in% c("5DBCD9E0"))] <- "TEST_TAG"
 lastseen$TagType[which(lastseen$TagID %in% c("E0A0211A",
                                              "01AEB356",
                                              "8A88B621",
@@ -549,26 +549,11 @@ TagQuery <- TagQuery %>%
 
 TagQuery <- TagQuery[, c(1,4,3)]; colnames(TagQuery) <- c("TagID", "Station", "DetectionTime")
 
-# Plot the detections of this specific tag (in this case Billy):
+# Plot the detections of this specific tag:
 ggplot(TagQuery, aes(x = DetectionTime)) +
   geom_linerange(aes(ymin = 0, ymax = 1)) +
   scale_y_continuous(breaks = c(0, 1)) +
-  labs(title = "Billy's Coquet Visits")
-
-
-
-last_detections <- dbGetQuery(
-  con,
-  "
-  SELECT
-      tag_id,
-      MAX(timestamp) AS last_detection,
-      arg_max(base_station, timestamp) AS last_base_station
-  FROM detections
-  GROUP BY tag_id
-  "
-)
-
+  labs(title = paste("Detections of tag", TagQuery$TagID[1], sep = " "))
 
 ### 10 - Plotting the historical tag detections: ######
 
@@ -617,7 +602,7 @@ ggplot(data = Detections2025, aes(x = time, y = tag_id)) +
        fill = "Detections") +
   theme_minimal()
 
-############
+### End of script
 
 
 
