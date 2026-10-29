@@ -107,9 +107,9 @@ CTTdatabase <- DBI::dbConnect(duckdb::duckdb(),
 
 # 1. The name of the project we are accessing:
 
-# IMPORTANT! - You will notice below there is a space after 'Scotland'. This is how the project
-# is named on the CTT database so we have to copy it.
-myproject <- "RSPB Scotland "
+# IMPORTANT! - You need to paste the name of the project here exactly as it appears in CTT,
+#              including any additional spaces or capitals etc.
+myproject <- "insert project here"
 
 # 2. The base station(s) to access:
 
@@ -257,7 +257,7 @@ for(i in 1){
   
   # Write in the CTT specific objects we need (all axplained in sections 1-6):
   my_token <- "insert API key here"
-  myproject <- "RSPB Scotland "
+  myproject <- "insert project here"
   outpath <- dir
   
   print(ls())
